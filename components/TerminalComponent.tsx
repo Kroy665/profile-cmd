@@ -53,7 +53,7 @@ const TerminalComponent = ({
   }, [])
   
   term.write(`Last login: ${lastLogin} on ttys000 \r\n`);
-  content.forEach(({ text, color }) => {
+  content.forEach(({ text }) => {
     term.write(`${text}  \r\n`);
   });
   term.write(`Koushik@Koushiks-MacBook-Pro ~ % `);
