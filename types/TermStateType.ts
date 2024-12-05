@@ -1,0 +1,1 @@
+export type TermStateType = 'open' | 'closed' | 'minimized' | 'fullscreen';

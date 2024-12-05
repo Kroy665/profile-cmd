@@ -1,8 +1,9 @@
-import Image from "next/image";
 import localFont from "next/font/local";
 import TerminalUI from "../components/TerminalUI";
 import React from "react";
-import TabType from "../types/TabType";
+import MatrixBackground from "../components/MatrixBackground";
+import BottomMenu from "../components/BottomMenu";
+import { TermStateType } from "../types/TermStateType";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,57 +28,66 @@ const macFont = localFont({
   variable: "--font-mac",
 });
 
+
+const tab = {
+  id: 1,
+  name: "Koushik -- zsh ",
+  active: true,
+  content: [{
+    "text": "Welcome to Koushik's Portfolio",
+    "type": "text",
+    "color": "white"
+  }, {
+    "text": "Type 'help' to get started",
+    "type": "text",
+    "color": "white"
+  }],
+  initialPosition: { x: 50, y: 100 },
+  initialSize: { width: 650, height: 400 }
+}
+
 export default function Home() {
 
-  const [tabs, setTabs] = React.useState<TabType[]>([
-    { 
-      id: 1, 
-      name: "Koushik -- zsh ",
-      active: true,
-      content: [{
-        "text": "Welcome to Koushik's Portfolio",
-        "type": "text",
-        "color": "white"
-      },{
-        "text": "Type 'help' to get started",
-        "type": "text",
-        "color": "white"
-      }],
-      initialPosition: { x: 50, y: 100 },
-      initialSize: { width: 650, height: 400 }
-    }
-  ])
+  const [termState, setTermState] = React.useState<TermStateType>('open');
+  const [priviousState, setPriviousState] = React.useState<{
+    prevPosition: { x: number, y: number },
+    prevSize: { width: number, height: number }
+  }> ({
+    prevPosition: { x: 50, y: 100 },
+    prevSize: { width: 650, height: 400 }
+  });
+
 
   return (
-    // <React.StrictMode>
     <div
       className={`${geistSans.variable} ${geistMono.variable} ${terminal.variable} ${macFont.variable} font-[family-name:var(--font-mac)]`}
     >
+      <MatrixBackground />
 
       <div
         className="p-4 "
       >
-        {/* <TerminalUI />
+        
+        <TerminalUI
+          key={tab.id}
+          id={tab.id}
+          name={tab.name}
+          active={tab.active}
+          content={tab.content}
+          initialPosition={tab.initialPosition}
+          initialSize={tab.initialSize}
+          setTermState={setTermState}
+          termState={termState}
+          setPriviousState={setPriviousState}
+          priviousState={priviousState}
+        />
 
-        <TerminalUI 
-          initialPosition={{ x: 200, y: 300 }}
-          initialSize={{ width: 500, height: 200 }}
-        /> */}
-
-        {tabs.map(tab => (
-          <TerminalUI 
-            key={tab.id}
-            id={tab.id}
-            name={tab.name}
-            active={tab.active}
-            content={tab.content}
-            initialPosition={tab.initialPosition}
-            initialSize={tab.initialSize}
-            setTabs={setTabs}
-          />
-        ))}
       </div>
+
+      <BottomMenu 
+        setTermState={setTermState}
+        termState={termState}
+      />
     </div>
-    // </React.StrictMode>
   );
 }

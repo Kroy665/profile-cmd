@@ -53,7 +53,7 @@ const TerminalComponent = ({
   }, [])
   
   term.write(`Last login: ${lastLogin} on ttys000 \r\n`);
-  content.forEach(({ text, color }) => {
+  content.forEach(({ text }) => {
     term.write(`${text}  \r\n`);
   });
   term.write(`Koushik@Koushiks-MacBook-Pro ~ % `);
@@ -90,6 +90,25 @@ const TerminalComponent = ({
           term.write('Role: Software Engineer \r\n');
           term.write('Location: Bangalore, India \r\n');
           term.write('Email: kroy963@gmail.com');
+          term.write('\r\nKoushik@Koushiks-MacBook-Pro ~ % ');
+        } else if (command === '') {
+          term.write('\r\nKoushik@Koushiks-MacBook-Pro ~ % ');
+        } else if (command === 'ls') {
+          term.write('\r\n');
+          term.write('profile.txt \r\n');
+          term.write('\r\nKoushik@Koushiks-MacBook-Pro ~ % ');
+        } else if (command === 'ls -al') {
+          term.write('\r\n');
+          term.write('total 1 \r\n');
+          term.write('-rw-r--r--  1 Koushik  staff  0  4 Aug 09:00 profile.txt \r\n');
+          term.write('\r\nKoushik@Koushiks-MacBook-Pro ~ % ');
+        } 
+        else if (command === 'cat profile.txt') {
+          term.write('\r\n');
+          term.write('Name: Koushik \r\n');
+          term.write('Role: Software Engineer \r\n');
+          term.write('Location: Bangalore, India \r\n');
+          term.write('Email: \r\n'); 
           term.write('\r\nKoushik@Koushiks-MacBook-Pro ~ % ');
         } else {
           term.write('\r\n');
